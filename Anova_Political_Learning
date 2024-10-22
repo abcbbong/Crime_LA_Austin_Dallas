@@ -1,34 +1,40 @@
+import os
 import pandas as pd
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
+# Importing statsmodels modules only after ensuring that statsmodels is installed
+try:
+    from statsmodels.stats.multicomp import pairwise_tukeyhsd
+    import statsmodels.api as sm
+    import numpy as np
+except ImportError as e:
+    print("Required libraries are missing. Please install them using the following command:")
+    print("pip install statsmodels")
+    raise e
+
 # Load the CSV file
-file_path = '/mnt/data/your_file_path.csv'  # Update with the path to your CSV file
+file_path = 'F:\\CSULA\\CIS 5200\\Project\\anova.csv'  # Update with the correct path to your CSV file
 data = pd.read_csv(file_path)
 
-# Check the first few rows of the data to ensure it is loaded correctly
-print(data.head())
+# Rename columns for consistency
+data.rename(columns={'c_year': 'year', 'Category': 'category', 'Population': 'population', 'cnt': 'count', 'City': 'city'}, inplace=True)
 
-# Aggregate total crime counts across all categories for each city and year
-data_agg = data.groupby(['year', 'city', 'population']).agg({'count': 'sum'}).reset_index()
+# Aggregate total crime counts as the sum of 'count' and average population by city and year
+data_agg = data.groupby(['year', 'city']).agg({'count': 'sum', 'population': 'mean'}).reset_index()
 
 # Calculate 'Total Crime Rate per 100,000 people'
 data_agg['Crime per 100,000'] = (data_agg['count'] / data_agg['population']) * 100000
 
 # Perform one-way ANOVA to compare 'Crime per 100,000' across cities
 anova_result = stats.f_oneway(
-    data_agg[data_agg['city'] == 'LA']['Crime per 100,000'],
+    data_agg[data_agg['city'] == 'Los Angeles']['Crime per 100,000'],
+    data_agg[data_agg['city'] == 'Chicago']['Crime per 100,000'],
     data_agg[data_agg['city'] == 'Austin']['Crime per 100,000'],
     data_agg[data_agg['city'] == 'Dallas']['Crime per 100,000']
 )
 
-# Save the results to a CSV file
-output_file = '/mnt/data/anova_results.csv'
-anova_results_df = pd.DataFrame({'F-statistic': [anova_result.statistic], 'p-value': [anova_result.pvalue]})
-anova_results_df.to_csv(output_file, index=False)
-print(f'ANOVA results saved to {output_file}')
-
-# Display the ANOVA results and hypothesis decision
+# Print the ANOVA results
 print('ANOVA Results:')
 print(f'F-statistic: {anova_result.statistic:.4f}')
 print(f'p-value: {anova_result.pvalue:.4f}')
@@ -37,16 +43,57 @@ print(f'p-value: {anova_result.pvalue:.4f}')
 significance_level = 0.05
 if anova_result.pvalue < significance_level:
     print(f'Since the p-value ({anova_result.pvalue:.4f}) is less than {significance_level}, we reject the null hypothesis.')
-    print('This suggests that there is a significant difference in crime rates across the cities, potentially indicating that political leanings may affect crime rates.')
+    print('This suggests that there is a significant difference in crime rates across the cities.')
 else:
     print(f'Since the p-value ({anova_result.pvalue:.4f}) is greater than {significance_level}, we fail to reject the null hypothesis.')
-    print('This suggests that there is no significant evidence to conclude that political leanings affect crime rates.')
+    print('This suggests that there is no significant evidence to conclude that crime rates differ across the cities.')
+
+# Post-hoc analysis with Tukey's HSD test
+data_agg['political_leaning'] = np.where(data_agg['city'] == 'Dallas', 'Republican', 'Democrat')
+
+# Tukey's HSD test to compare crime rates across cities
+tukey = pairwise_tukeyhsd(endog=data_agg['Crime per 100,000'], groups=data_agg['city'], alpha=0.05)
+print("\nTukey's HSD Test Results:")
+print(tukey)
+
+# Regression analysis to see if political leaning affects crime rates
+data_agg['leaning_numeric'] = np.where(data_agg['political_leaning'] == 'Republican', 1, 0)
+X = sm.add_constant(data_agg['leaning_numeric'])
+y = data_agg['Crime per 100,000']
+
+# Fit the regression model
+model = sm.OLS(y, X).fit()
+
+# Print the regression results
+print("\nRegression Analysis Results:")
+print(model.summary())
+
+# Save results to files
+output_dir = 'F:\\CSULA\\CIS 5200\\Project\\Output'
+os.makedirs(output_dir, exist_ok=True)
+anova_output_file = os.path.join(output_dir, 'anova_results.csv')
+tukey_output_file = os.path.join(output_dir, 'tukey_results.csv')
+regression_output_file = os.path.join(output_dir, 'regression_results.csv')
+
+# Save ANOVA results
+anova_results_df = pd.DataFrame({'F-statistic': [anova_result.statistic], 'p-value': [anova_result.pvalue]})
+anova_results_df.to_csv(anova_output_file, index=False)
+
+# Save Tukey's test results
+tukey_df = pd.DataFrame(data=tukey._results_table.data[1:], columns=tukey._results_table.data[0])
+tukey_df.to_csv(tukey_output_file, index=False)
+
+# Save regression results
+with open(regression_output_file, 'w') as f:
+    f.write(model.summary().as_csv())
+
+print(f"\nResults saved to:\n{anova_output_file}\n{tukey_output_file}\n{regression_output_file}")
 
 # Plot the average "Crime per 100,000" for each city over the entire period
 average_crime_per_100k = data_agg.groupby('city')['Crime per 100,000'].mean()
 
 plt.figure(figsize=(10, 6))
-average_crime_per_100k.plot(kind='bar', color=['blue', 'orange', 'green'])
+average_crime_per_100k.plot(kind='bar', color=['blue', 'orange', 'green', 'red'])
 plt.title('Average Total Crime Rate per 100,000 People by City (2014-2023)')
 plt.xlabel('City')
 plt.ylabel('Average Total Crime Rate per 100,000 People')

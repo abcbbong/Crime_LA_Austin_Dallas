@@ -115,3 +115,24 @@ plt.ylabel('Total Crime Rate per 100,000 People')
 # Show the plot
 plt.tight_layout()
 plt.show()
+
+# Line chart to show the trend of "Crime per 100,000" for each city over the years
+plt.figure(figsize=(14, 8))
+
+# Plotting line chart for each city
+for city in data_agg['city'].unique():
+    city_data = data_agg[data_agg['city'] == city]
+    plt.plot(city_data['year'], city_data['Crime per 100,000'], marker='o', label=city)
+
+# Set plot title and labels
+plt.title('Trend of Total Crime Rate per 100,000 People by City (2014-2023)')
+plt.xlabel('Year')
+plt.ylabel('Total Crime Rate per 100,000 People')
+
+# Adding legend to identify each city's line
+plt.legend(title='City')
+
+# Show grid and tighten layout
+plt.grid()
+plt.tight_layout()
+plt.show()

@@ -100,3 +100,18 @@ plt.ylabel('Average Total Crime Rate per 100,000 People')
 plt.xticks(rotation=0)
 plt.tight_layout()
 plt.show()
+
+# Set figure size
+plt.figure(figsize=(12, 8))
+
+# Create a box plot for 'Crime per 100,000' by 'city'
+sns.boxplot(x='city', y='Crime per 100,000', data=data_agg)
+
+# Set plot title and labels
+plt.title('Distribution of Total Crime Rate per 100,000 People by City (2014-2023)')
+plt.xlabel('City')
+plt.ylabel('Total Crime Rate per 100,000 People')
+
+# Show the plot
+plt.tight_layout()
+plt.show()

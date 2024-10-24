@@ -1,0 +1,281 @@
+c_year,Category,Population,cnt,City
+2014,Crimes Against Persons,901463,13789,Austin
+2014,Miscellaneous,901463,900,Austin
+2015,Crimes Against Persons,921452,13912,Austin
+2016,Financial & Fraud-Related Crimes,939778,6326,Austin
+2017,Crimes Against Persons,951610,13676,Austin
+2017,Financial & Fraud-Related Crimes,951610,7808,Austin
+2017,Miscellaneous,951610,1057,Austin
+2019,Property Crimes,978763,44001,Austin
+2019,Unknown Category,978763,16301,Austin
+2019,Weapon-Related Crimes,978763,18061,Austin
+2020,Crimes Against Persons,965827,14076,Austin
+2020,Miscellaneous,965827,852,Austin
+2021,Property Crimes,969608,42726,Austin
+2021,Public Order Crimes,969608,3223,Austin
+2021,Unknown Category,969608,12987,Austin
+2021,Weapon-Related Crimes,969608,15091,Austin
+2022,Financial & Fraud-Related Crimes,975418,2649,Austin
+2023,Crimes Against Persons,979882,12589,Austin
+2014,Property Crimes,901463,44478,Austin
+2014,Public Order Crimes,901463,5828,Austin
+2014,Unknown Category,901463,17817,Austin
+2014,Weapon-Related Crimes,901463,25871,Austin
+2015,Weapon-Related Crimes,921452,23712,Austin
+2016,Crimes Against Persons,939778,13470,Austin
+2016,Miscellaneous,939778,1034,Austin
+2017,Public Order Crimes,951610,4921,Austin
+2017,Unknown Category,951610,16136,Austin
+2017,Weapon-Related Crimes,951610,21243,Austin
+2018,Crimes Against Persons,962800,13227,Austin
+2018,Financial & Fraud-Related Crimes,962800,5791,Austin
+2018,Miscellaneous,962800,930,Austin
+2019,Public Order Crimes,978763,4720,Austin
+2020,Public Order Crimes,965827,3572,Austin
+2020,Unknown Category,965827,15303,Austin
+2021,Financial & Fraud-Related Crimes,969608,2384,Austin
+2022,Crimes Against Persons,975418,13662,Austin
+2022,Miscellaneous,975418,870,Austin
+2015,Property Crimes,921452,43326,Austin
+2015,Public Order Crimes,921452,5705,Austin
+2015,Unknown Category,921452,17156,Austin
+2016,Public Order Crimes,939778,5511,Austin
+2016,Unknown Category,939778,16190,Austin
+2016,Weapon-Related Crimes,939778,22757,Austin
+2017,Property Crimes,951610,38953,Austin
+2018,Property Crimes,962800,39635,Austin
+2018,Unknown Category,962800,15186,Austin
+2018,Weapon-Related Crimes,962800,18607,Austin
+2020,Property Crimes,965827,45536,Austin
+2020,Weapon-Related Crimes,965827,16346,Austin
+2023,Property Crimes,979882,40672,Austin
+2023,Public Order Crimes,979882,3252,Austin
+2023,Unknown Category,979882,13303,Austin
+2023,Weapon-Related Crimes,979882,13020,Austin
+2014,Financial & Fraud-Related Crimes,901463,6019,Austin
+2015,Financial & Fraud-Related Crimes,921452,5817,Austin
+2016,Property Crimes,939778,41743,Austin
+2018,Public Order Crimes,962800,4518,Austin
+2019,Crimes Against Persons,978763,14215,Austin
+2019,Financial & Fraud-Related Crimes,978763,4836,Austin
+2019,Miscellaneous,978763,873,Austin
+2020,Financial & Fraud-Related Crimes,965827,3139,Austin
+2021,Crimes Against Persons,969608,14213,Austin
+2021,Miscellaneous,969608,989,Austin
+2022,Property Crimes,975418,41815,Austin
+2022,Public Order Crimes,975418,3352,Austin
+2022,Unknown Category,975418,12481,Austin
+2022,Weapon-Related Crimes,975418,13244,Austin
+2023,Financial & Fraud-Related Crimes,979882,3078,Austin
+2015,Miscellaneous,921452,1009,Austin
+2023,Miscellaneous,979882,870,Austin
+2014,Crimes Against Persons,1278737,2695,Dallas
+2014,Financial & Fraud-Related Crimes,1278737,1156,Dallas
+2014,Property Crimes,1278737,17355,Dallas
+2014,Public Order Crimes,1278737,1458,Dallas
+2014,Unknown Category,1278737,23941,Dallas
+2015,Miscellaneous,1300859,7037,Dallas
+2015,Weapon-Related Crimes,1300859,1729,Dallas
+2016,Crimes Against Persons,1323587,5240,Dallas
+2016,Financial & Fraud-Related Crimes,1323587,1268,Dallas
+2016,Property Crimes,1323587,26897,Dallas
+2016,Public Order Crimes,1323587,5272,Dallas
+2016,Unknown Category,1323587,44321,Dallas
+2017,Miscellaneous,1342275,7311,Dallas
+2017,Weapon-Related Crimes,1342275,1793,Dallas
+2018,Crimes Against Persons,1341692,5746,Dallas
+2018,Financial & Fraud-Related Crimes,1341692,2046,Dallas
+2018,Property Crimes,1341692,25768,Dallas
+2018,Public Order Crimes,1341692,6845,Dallas
+2018,Unknown Category,1341692,57075,Dallas
+2019,Crimes Against Persons,1343192,6986,Dallas
+2019,Financial & Fraud-Related Crimes,1343192,3385,Dallas
+2019,Property Crimes,1343192,28248,Dallas
+2019,Public Order Crimes,1343192,6266,Dallas
+2019,Unknown Category,1343192,58333,Dallas
+2020,Miscellaneous,1303212,10722,Dallas
+2020,Weapon-Related Crimes,1303212,2625,Dallas
+2021,Miscellaneous,1289705,12146,Dallas
+2021,Weapon-Related Crimes,1289705,3091,Dallas
+2022,Crimes Against Persons,1297358,7884,Dallas
+2022,Financial & Fraud-Related Crimes,1297358,2844,Dallas
+2022,Property Crimes,1297358,26965,Dallas
+2022,Public Order Crimes,1297358,4002,Dallas
+2022,Unknown Category,1297358,59064,Dallas
+2023,Crimes Against Persons,1302868,7446,Dallas
+2023,Financial & Fraud-Related Crimes,1302868,2681,Dallas
+2023,Property Crimes,1302868,24615,Dallas
+2023,Public Order Crimes,1302868,2547,Dallas
+2023,Unknown Category,1302868,58586,Dallas
+2014,Miscellaneous,1278737,4188,Dallas
+2014,Weapon-Related Crimes,1278737,1039,Dallas
+2015,Crimes Against Persons,1300859,4545,Dallas
+2015,Financial & Fraud-Related Crimes,1300859,1419,Dallas
+2015,Property Crimes,1300859,26482,Dallas
+2015,Public Order Crimes,1300859,3116,Dallas
+2015,Unknown Category,1300859,41077,Dallas
+2016,Miscellaneous,1323587,7001,Dallas
+2016,Weapon-Related Crimes,1323587,1852,Dallas
+2017,Crimes Against Persons,1342275,5780,Dallas
+2017,Financial & Fraud-Related Crimes,1342275,1235,Dallas
+2017,Property Crimes,1342275,25161,Dallas
+2017,Public Order Crimes,1342275,4041,Dallas
+2017,Unknown Category,1342275,41814,Dallas
+2018,Miscellaneous,1341692,9333,Dallas
+2018,Weapon-Related Crimes,1341692,2051,Dallas
+2019,Miscellaneous,1343192,10799,Dallas
+2019,Weapon-Related Crimes,1343192,2288,Dallas
+2020,Crimes Against Persons,1303212,7620,Dallas
+2020,Financial & Fraud-Related Crimes,1303212,3903,Dallas
+2020,Property Crimes,1303212,26411,Dallas
+2020,Public Order Crimes,1303212,5405,Dallas
+2020,Unknown Category,1303212,59904,Dallas
+2021,Crimes Against Persons,1289705,8005,Dallas
+2021,Financial & Fraud-Related Crimes,1289705,3644,Dallas
+2021,Property Crimes,1289705,25390,Dallas
+2021,Public Order Crimes,1289705,5040,Dallas
+2021,Unknown Category,1289705,59212,Dallas
+2022,Miscellaneous,1297358,13404,Dallas
+2022,Weapon-Related Crimes,1297358,2543,Dallas
+2023,Miscellaneous,1302868,18478,Dallas
+2023,Weapon-Related Crimes,1302868,2421,Dallas
+2014,Crimes Against Persons,2726800,73592,Chicago
+2014,Financial & Fraud-Related Crimes,2726800,12508,Chicago
+2014,Property Crimes,2726800,93733,Chicago
+2014,Public Order Crimes,2726800,29106,Chicago
+2014,Unknown Category,2726800,49501,Chicago
+2015,Miscellaneous,2724006,12984,Chicago
+2015,Weapon-Related Crimes,2724006,4577,Chicago
+2016,Miscellaneous,2716297,13191,Chicago
+2016,Weapon-Related Crimes,2716297,5756,Chicago
+2017,Crimes Against Persons,2710456,77197,Chicago
+2017,Financial & Fraud-Related Crimes,2710456,15497,Chicago
+2017,Property Crimes,2710456,92023,Chicago
+2017,Public Order Crimes,2710456,12823,Chicago
+2017,Unknown Category,2710456,53268,Chicago
+2018,Crimes Against Persons,2700968,77565,Chicago
+2018,Financial & Fraud-Related Crimes,2700968,15426,Chicago
+2018,Property Crimes,2700968,88341,Chicago
+2018,Public Order Crimes,2700968,14036,Chicago
+2018,Unknown Category,2700968,55552,Chicago
+2019,Crimes Against Persons,2691497,77251,Chicago
+2019,Financial & Fraud-Related Crimes,2691497,15239,Chicago
+2019,Property Crimes,2691497,81661,Chicago
+2019,Public Order Crimes,2691497,15586,Chicago
+2019,Unknown Category,2691497,54945,Chicago
+2020,Crimes Against Persons,2743329,64148,Chicago
+2020,Financial & Fraud-Related Crimes,2743329,15850,Chicago
+2020,Property Crimes,2743329,70606,Chicago
+2020,Public Order Crimes,2743329,10592,Chicago
+2020,Unknown Category,2743329,37657,Chicago
+2021,Miscellaneous,2704101,10794,Chicago
+2021,Weapon-Related Crimes,2704101,3302,Chicago
+2022,Miscellaneous,2672660,11438,Chicago
+2022,Weapon-Related Crimes,2672660,4196,Chicago
+2023,Crimes Against Persons,2664452,71255,Chicago
+2023,Financial & Fraud-Related Crimes,2664452,13712,Chicago
+2023,Property Crimes,2664452,105200,Chicago
+2023,Public Order Crimes,2664452,9209,Chicago
+2023,Unknown Category,2664452,45219,Chicago
+2014,Miscellaneous,2726800,13120,Chicago
+2014,Weapon-Related Crimes,2726800,4278,Chicago
+2015,Crimes Against Persons,2724006,73106,Chicago
+2015,Financial & Fraud-Related Crimes,2724006,12907,Chicago
+2015,Property Crimes,2724006,87463,Chicago
+2015,Public Order Crimes,2724006,24484,Chicago
+2015,Unknown Category,2724006,49301,Chicago
+2016,Crimes Against Persons,2716297,77323,Chicago
+2016,Financial & Fraud-Related Crimes,2716297,15310,Chicago
+2016,Property Crimes,2716297,94646,Chicago
+2016,Public Order Crimes,2716297,14108,Chicago
+2016,Unknown Category,2716297,49541,Chicago
+2017,Miscellaneous,2710456,12796,Chicago
+2017,Weapon-Related Crimes,2710456,5537,Chicago
+2018,Miscellaneous,2700968,13322,Chicago
+2018,Weapon-Related Crimes,2700968,4772,Chicago
+2019,Miscellaneous,2691497,12792,Chicago
+2019,Weapon-Related Crimes,2691497,4002,Chicago
+2020,Miscellaneous,2743329,10005,Chicago
+2020,Weapon-Related Crimes,2743329,3580,Chicago
+2021,Crimes Against Persons,2704101,65575,Chicago
+2021,Financial & Fraud-Related Crimes,2704101,15295,Chicago
+2021,Property Crimes,2704101,70347,Chicago
+2021,Public Order Crimes,2704101,8845,Chicago
+2021,Unknown Category,2704101,35131,Chicago
+2022,Crimes Against Persons,2672660,66569,Chicago
+2022,Financial & Fraud-Related Crimes,2672660,13582,Chicago
+2022,Property Crimes,2672660,94225,Chicago
+2022,Public Order Crimes,2672660,8760,Chicago
+2022,Unknown Category,2672660,40685,Chicago
+2023,Miscellaneous,2664452,11627,Chicago
+2023,Weapon-Related Crimes,2664452,6175,Chicago
+2014,Crimes Against Persons,3904102,50734,Los Angeles
+2014,Financial & Fraud-Related Crimes,3904102,4339,Los Angeles
+2014,Property Crimes,3904102,86428,Los Angeles
+2014,Public Order Crimes,3904102,1625,Los Angeles
+2014,Unknown Category,3904102,51563,Los Angeles
+2015,Miscellaneous,3933644,9,Los Angeles
+2015,Weapon-Related Crimes,3933644,293,Los Angeles
+2016,Crimes Against Persons,3957520,58207,Los Angeles
+2016,Financial & Fraud-Related Crimes,3957520,5138,Los Angeles
+2016,Property Crimes,3957520,99439,Los Angeles
+2016,Public Order Crimes,3957520,2522,Los Angeles
+2016,Unknown Category,3957520,60431,Los Angeles
+2017,Crimes Against Persons,3975067,60855,Los Angeles
+2017,Financial & Fraud-Related Crimes,3975067,4750,Los Angeles
+2017,Property Crimes,3975067,101575,Los Angeles
+2017,Public Order Crimes,3975067,2791,Los Angeles
+2017,Unknown Category,3975067,61469,Los Angeles
+2018,Crimes Against Persons,3981140,60846,Los Angeles
+2018,Financial & Fraud-Related Crimes,3981140,4524,Los Angeles
+2018,Property Crimes,3981140,99732,Los Angeles
+2018,Public Order Crimes,3981140,3238,Los Angeles
+2018,Unknown Category,3981140,62062,Los Angeles
+2019,Crimes Against Persons,3982885,59476,Los Angeles
+2019,Financial & Fraud-Related Crimes,3982885,4633,Los Angeles
+2019,Property Crimes,3982885,92644,Los Angeles
+2019,Public Order Crimes,3982885,3162,Los Angeles
+2019,Unknown Category,3982885,60327,Los Angeles
+2020,Crimes Against Persons,3895848,54475,Los Angeles
+2020,Financial & Fraud-Related Crimes,3895848,3150,Los Angeles
+2020,Property Crimes,3895848,82882,Los Angeles
+2020,Public Order Crimes,3895848,2858,Los Angeles
+2020,Unknown Category,3895848,55383,Los Angeles
+2021,Miscellaneous,3832573,8,Los Angeles
+2021,Weapon-Related Crimes,3832573,560,Los Angeles
+2022,Miscellaneous,3822782,5,Los Angeles
+2022,Weapon-Related Crimes,3822782,544,Los Angeles
+2023,Miscellaneous,3820914,12,Los Angeles
+2023,Weapon-Related Crimes,3820914,409,Los Angeles
+2014,Miscellaneous,3904102,7,Los Angeles
+2014,Weapon-Related Crimes,3904102,271,Los Angeles
+2015,Crimes Against Persons,3933644,55768,Los Angeles
+2015,Financial & Fraud-Related Crimes,3933644,4474,Los Angeles
+2015,Property Crimes,3933644,95958,Los Angeles
+2015,Public Order Crimes,3933644,2211,Los Angeles
+2015,Unknown Category,3933644,56372,Los Angeles
+2016,Miscellaneous,3957520,5,Los Angeles
+2016,Weapon-Related Crimes,3957520,358,Los Angeles
+2017,Miscellaneous,3975067,10,Los Angeles
+2017,Weapon-Related Crimes,3975067,330,Los Angeles
+2018,Miscellaneous,3981140,6,Los Angeles
+2018,Weapon-Related Crimes,3981140,263,Los Angeles
+2019,Miscellaneous,3982885,5,Los Angeles
+2019,Weapon-Related Crimes,3982885,315,Los Angeles
+2020,Miscellaneous,3895848,6,Los Angeles
+2020,Weapon-Related Crimes,3895848,507,Los Angeles
+2021,Crimes Against Persons,3832573,56029,Los Angeles
+2021,Financial & Fraud-Related Crimes,3832573,2861,Los Angeles
+2021,Property Crimes,3832573,89912,Los Angeles
+2021,Public Order Crimes,3832573,2771,Los Angeles
+2021,Unknown Category,3832573,58831,Los Angeles
+2022,Crimes Against Persons,3822782,58970,Los Angeles
+2022,Financial & Fraud-Related Crimes,3822782,3524,Los Angeles
+2022,Property Crimes,3822782,107801,Los Angeles
+2022,Public Order Crimes,3822782,2755,Los Angeles
+2022,Unknown Category,3822782,63437,Los Angeles
+2023,Crimes Against Persons,3820914,59058,Los Angeles
+2023,Financial & Fraud-Related Crimes,3820914,3837,Los Angeles
+2023,Property Crimes,3820914,101323,Los Angeles
+2023,Public Order Crimes,3820914,4494,Los Angeles
+2023,Unknown Category,3820914,66921,Los Angeles

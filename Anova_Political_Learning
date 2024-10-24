@@ -10,8 +10,11 @@ try:
     import numpy as np
 except ImportError as e:
     print("Required libraries are missing. Please install them using the following command:")
-    print("pip install statsmodels")
+    print("pip install statsmodels numpy")
     raise e
+
+# Additional import for seaborn
+import seaborn as sns
 
 # Load the CSV file
 file_path = 'F:\\CSULA\\CIS 5200\\Project\\anova.csv'  # Update with the correct path to your CSV file
@@ -50,7 +53,6 @@ else:
 
 # Post-hoc analysis with Tukey's HSD test
 data_agg['political_leaning'] = np.where(data_agg['city'] == 'Dallas', 'Republican', 'Democrat')
-
 # Tukey's HSD test to compare crime rates across cities
 tukey = pairwise_tukeyhsd(endog=data_agg['Crime per 100,000'], groups=data_agg['city'], alpha=0.05)
 print("\nTukey's HSD Test Results:")
@@ -60,10 +62,8 @@ print(tukey)
 data_agg['leaning_numeric'] = np.where(data_agg['political_leaning'] == 'Republican', 1, 0)
 X = sm.add_constant(data_agg['leaning_numeric'])
 y = data_agg['Crime per 100,000']
-
 # Fit the regression model
 model = sm.OLS(y, X).fit()
-
 # Print the regression results
 print("\nRegression Analysis Results:")
 print(model.summary())
@@ -101,7 +101,7 @@ plt.xticks(rotation=0)
 plt.tight_layout()
 plt.show()
 
-# Set figure size
+# Set figure size for box plot
 plt.figure(figsize=(12, 8))
 
 # Create a box plot for 'Crime per 100,000' by 'city'

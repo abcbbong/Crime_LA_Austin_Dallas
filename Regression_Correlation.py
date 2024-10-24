@@ -1,122 +1,138 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import statsmodels.api as sm
 import os
+import pandas as pd
+import scipy.stats as stats
+import matplotlib.pyplot as plt
 
-# Define the output directory
-output_dir = r'F:\CSULA\CIS 5200\Project\Output'
-os.makedirs(output_dir, exist_ok=True)
+# Importing statsmodels modules only after ensuring that statsmodels is installed
+try:
+    from statsmodels.stats.multicomp import pairwise_tukeyhsd
+    import statsmodels.api as sm
+    import numpy as np
+except ImportError as e:
+    print("Required libraries are missing. Please install them using the following command:")
+    print("pip install statsmodels numpy")
+    raise e
 
-# Load the datasets
-laporp47_data = pd.read_csv(r'F:\CSULA\CIS 5200\Project\laporp47.csv')
-anova_data = pd.read_csv(r'F:\CSULA\CIS 5200\Project\anova.csv')
+# Additional import for seaborn
+import seaborn as sns
 
-# Function to calculate the crime cases per capita (per 100,000 population)
-def calculate_crime_cases_per_capita(data):
-    # Filtering Los Angeles data
-    la_data = data[data['City'] == 'Los Angeles']
-    
-    # Converting Population to numeric, filling missing values
-    la_data['Population'] = pd.to_numeric(la_data['Population'], errors='coerce').fillna(method='ffill')
-    
-    # Aggregating total crime cases and average population by year
-    annual_data = la_data.groupby('c_year').agg(
-        Total_Crime_Cases=('cnt', 'sum'),
-        Avg_Population=('Population', 'mean')
-    ).reset_index()
-    
-    # Calculating crime cases per 100,000 population
-    annual_data['Crime_Cases_Per_Capita'] = (annual_data['Total_Crime_Cases'] / annual_data['Avg_Population']) * 100000
-    
-    return annual_data[['c_year', 'Crime_Cases_Per_Capita']]
+# Load the CSV file
+file_path = 'F:\\CSULA\\CIS 5200\\Project\\anova.csv'  # Update with the correct path to your CSV file
+data = pd.read_csv(file_path)
 
-# Calculate the crime cases per capita for the ANOVA dataset
-crime_cases_per_capita_data = calculate_crime_cases_per_capita(anova_data)
+# Rename columns for consistency
+data.rename(columns={'c_year': 'year', 'Category': 'category', 'Population': 'population', 'cnt': 'count', 'City': 'city'}, inplace=True)
 
-# Filtering Los Angeles data for Proposition 47
-laporp47_la = laporp47_data[laporp47_data['City'] == 'Los Angeles']
-laporp47_annual = laporp47_la.groupby('c_year')['cnt'].count().reset_index()
-laporp47_annual.columns = ['Year', 'Number_of_Cases']
+# Aggregate total crime counts as the sum of 'count' and average population by city and year
+data_agg = data.groupby(['year', 'city']).agg({'count': 'sum', 'population': 'mean'}).reset_index()
 
-# Merging the crime cases per capita data with Proposition 47 data on the year
-merged_data = pd.merge(laporp47_annual, crime_cases_per_capita_data, left_on='Year', right_on='c_year').drop(columns=['c_year'])
+# Calculate 'Total Crime Rate per 100,000 people'
+data_agg['Crime per 100,000'] = (data_agg['count'] / data_agg['population']) * 100000
 
-# Save merged data to a CSV file
-merged_data.to_csv(os.path.join(output_dir, 'merged_data.csv'), index=False)
+# Perform one-way ANOVA to compare 'Crime per 100,000' across cities
+anova_result = stats.f_oneway(
+    data_agg[data_agg['city'] == 'Los Angeles']['Crime per 100,000'],
+    data_agg[data_agg['city'] == 'Chicago']['Crime per 100,000'],
+    data_agg[data_agg['city'] == 'Austin']['Crime per 100,000'],
+    data_agg[data_agg['city'] == 'Dallas']['Crime per 100,000']
+)
 
-# Performing regression analysis with crime cases per capita
-X = sm.add_constant(merged_data['Number_of_Cases'])  # Independent variable
-y = merged_data['Crime_Cases_Per_Capita']  # Dependent variable
-model = sm.OLS(y, X).fit()  # Fitting the regression model
-regression_summary = model.summary()
+# Print the ANOVA results
+print('ANOVA Results:')
+print(f'F-statistic: {anova_result.statistic:.4f}')
+print(f'p-value: {anova_result.pvalue:.4f}')
 
-# Save regression summary to a text file
-with open(os.path.join(output_dir, 'regression_summary.txt'), 'w') as f:
-    f.write(regression_summary.as_text())
-
-# Extracting p-value and coefficient for hypothesis testing
-p_value = model.pvalues['Number_of_Cases']
-coefficient = model.params['Number_of_Cases']
-
-# Hypothesis Test Interpretation
-if p_value < 0.05:
-    hypothesis_result = (
-        "Reject the null hypothesis. "
-        "There is a statistically significant relationship between Proposition 47 cases and the crime rate, "
-        "suggesting that Proposition 47 affects the crime rate."
-    )
+# Determine whether to reject or fail to reject the null hypothesis
+significance_level = 0.05
+if anova_result.pvalue < significance_level:
+    print(f'Since the p-value ({anova_result.pvalue:.4f}) is less than {significance_level}, we reject the null hypothesis.')
+    print('This suggests that there is a significant difference in crime rates across the cities.')
 else:
-    hypothesis_result = (
-        "Fail to reject the null hypothesis. "
-        "There is not enough evidence to suggest that Proposition 47 significantly affects the crime rate. "
-        "There is not correlation (relationship) between Proposition 47 crime cases and overall crime per capita."
-    )
+    print(f'Since the p-value ({anova_result.pvalue:.4f}) is greater than {significance_level}, we fail to reject the null hypothesis.')
+    print('This suggests that there is no significant evidence to conclude that crime rates differ across the cities.')
 
-# Plotting the regression results
-plt.figure(figsize=(14, 7))
-plt.scatter(merged_data['Number_of_Cases'], merged_data['Crime_Cases_Per_Capita'], color='blue', label='Data Points')
-plt.plot(merged_data['Number_of_Cases'], model.predict(X), color='red', label='Regression Line')
-plt.title('Regression Analysis: Crime Cases Per 100,000 Population vs. Number of Proposition 47 Cases (Los Angeles)')
-plt.xlabel('Number of Proposition 47 Cases')
-plt.ylabel('Crime Cases Per 100,000 Population')
-plt.legend()
-plt.grid()
-plt.savefig(os.path.join(output_dir, 'regression_analysis.png'))  # Save plot
+# Post-hoc analysis with Tukey's HSD test
+data_agg['political_leaning'] = np.where(data_agg['city'] == 'Dallas', 'Republican', 'Democrat')
+# Tukey's HSD test to compare crime rates across cities
+tukey = pairwise_tukeyhsd(endog=data_agg['Crime per 100,000'], groups=data_agg['city'], alpha=0.05)
+print("\nTukey's HSD Test Results:")
+print(tukey)
+
+# Regression analysis to see if political leaning affects crime rates
+data_agg['leaning_numeric'] = np.where(data_agg['political_leaning'] == 'Republican', 1, 0)
+X = sm.add_constant(data_agg['leaning_numeric'])
+y = data_agg['Crime per 100,000']
+# Fit the regression model
+model = sm.OLS(y, X).fit()
+# Print the regression results
+print("\nRegression Analysis Results:")
+print(model.summary())
+
+# Save results to files
+output_dir = 'F:\\CSULA\\CIS 5200\\Project\\Output'
+os.makedirs(output_dir, exist_ok=True)
+anova_output_file = os.path.join(output_dir, 'anova_results.csv')
+tukey_output_file = os.path.join(output_dir, 'tukey_results.csv')
+regression_output_file = os.path.join(output_dir, 'regression_results.csv')
+
+# Save ANOVA results
+anova_results_df = pd.DataFrame({'F-statistic': [anova_result.statistic], 'p-value': [anova_result.pvalue]})
+anova_results_df.to_csv(anova_output_file, index=False)
+
+# Save Tukey's test results
+tukey_df = pd.DataFrame(data=tukey._results_table.data[1:], columns=tukey._results_table.data[0])
+tukey_df.to_csv(tukey_output_file, index=False)
+
+# Save regression results
+with open(regression_output_file, 'w') as f:
+    f.write(model.summary().as_csv())
+
+print(f"\nResults saved to:\n{anova_output_file}\n{tukey_output_file}\n{regression_output_file}")
+
+# Plot the average "Crime per 100,000" for each city over the entire period
+average_crime_per_100k = data_agg.groupby('city')['Crime per 100,000'].mean()
+
+plt.figure(figsize=(10, 6))
+average_crime_per_100k.plot(kind='bar', color=['blue', 'orange', 'green', 'red'])
+plt.title('Average Total Crime Rate per 100,000 People by City (2014-2023)')
+plt.xlabel('City')
+plt.ylabel('Average Total Crime Rate per 100,000 People')
+plt.xticks(rotation=0)
+plt.tight_layout()
 plt.show()
 
-# Plotting the scatter plot for Proposition 47 cases and crime cases per capita
-plt.figure(figsize=(14, 7))
-plt.scatter(merged_data['Number_of_Cases'], merged_data['Crime_Cases_Per_Capita'], color='purple', label='Proposition 47 vs. Crime Cases Per Capita')
-plt.title('Scatter Plot: Proposition 47 Cases vs. Crime Cases Per 100,000 Population')
-plt.xlabel('Number of Proposition 47 Cases')
-plt.ylabel('Crime Cases Per 100,000 Population')
-plt.legend()
-plt.grid()
-plt.savefig(os.path.join(output_dir, 'scatter_plot.png'))  # Save plot
+# Set figure size for box plot
+plt.figure(figsize=(12, 8))
+
+# Create a box plot for 'Crime per 100,000' by 'city'
+sns.boxplot(x='city', y='Crime per 100,000', data=data_agg)
+
+# Set plot title and labels
+plt.title('Distribution of Total Crime Rate per 100,000 People by City (2014-2023)')
+plt.xlabel('City')
+plt.ylabel('Total Crime Rate per 100,000 People')
+
+# Show the plot
+plt.tight_layout()
 plt.show()
 
-# Plotting the correlation line chart
-plt.figure(figsize=(14, 7))
-plt.plot(merged_data['Year'], merged_data['Number_of_Cases'], marker='o', label='Proposition 47 Cases', color='b')
-plt.plot(merged_data['Year'], merged_data['Crime_Cases_Per_Capita'], marker='x', label='Crime Cases Per 100,000 Population', color='r')
-plt.title('Correlation Line Chart: Proposition 47 Cases vs. Crime Cases Per 100,000 Population in Los Angeles')
+# Line chart to show the trend of "Crime per 100,000" for each city over the years
+plt.figure(figsize=(14, 8))
+
+# Plotting line chart for each city
+for city in data_agg['city'].unique():
+    city_data = data_agg[data_agg['city'] == city]
+    plt.plot(city_data['year'], city_data['Crime per 100,000'], marker='o', label=city)
+
+# Set plot title and labels
+plt.title('Trend of Total Crime Rate per 100,000 People by City (2014-2023)')
 plt.xlabel('Year')
-plt.ylabel('Number of Cases / Crime Cases Per 100,000 Population')
-plt.legend()
+plt.ylabel('Total Crime Rate per 100,000 People')
+
+# Adding legend to identify each city's line
+plt.legend(title='City')
+
+# Show grid and tighten layout
 plt.grid()
-plt.savefig(os.path.join(output_dir, 'correlation_line_chart.png'))  # Save plot
+plt.tight_layout()
 plt.show()
-
-# Output the regression summary, hypothesis test result, coefficient, and p-value
-print(regression_summary)
-print(f"\nCoefficient for Number of Cases: {coefficient:.4f}")
-print(f"P-value for Number of Cases: {p_value:.4f}")
-print("\nHypothesis Test Result:")
-print(hypothesis_result)
-
-# Save the hypothesis test result to a text file
-with open(os.path.join(output_dir, 'hypothesis_test_result.txt'), 'w') as f:
-    f.write(f"Coefficient for Number of Cases: {coefficient:.4f}\n")
-    f.write(f"P-value for Number of Cases: {p_value:.4f}\n")
-    f.write("\nHypothesis Test Result:\n")
-    f.write(hypothesis_result)
